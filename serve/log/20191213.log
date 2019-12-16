@@ -1,0 +1,8 @@
+::1 - - [13/Dec/2019:08:59:37 +0000] "GET /home HTTP/1.1" 403 - "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:08:59:37 +0000] "GET /favicon.ico HTTP/1.1" 403 - "http://localhost:3800/home" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:01:56 +0000] "GET /home HTTP/1.1" 403 - "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:01:56 +0000] "GET /favicon.ico HTTP/1.1" 403 - "http://localhost:3800/home" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:02:36 +0000] "GET /home HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:02:36 +0000] "GET /favicon.ico HTTP/1.1" 200 - "http://localhost:3800/home" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:03:55 +0000] "GET /home HTTP/1.1" 403 - "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
+::1 - - [13/Dec/2019:09:03:55 +0000] "GET /favicon.ico HTTP/1.1" 403 - "http://localhost:3800/home" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"

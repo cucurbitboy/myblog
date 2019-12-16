@@ -1,0 +1,155 @@
+// fn是我们需要包装的事件回调, delay是时间间隔的阈值
+// tslint:disable-next-line: typedef
+export function throttle(fn: Function, delay: number) {
+  // last为上一次触发回调的时间, timer是定时器
+  let last: number = 0, timer: any = null;
+  // 将throttle处理结果当作函数返回
+  return function():any {
+    // 保留调用时的this上下文
+    let context:any = this;
+    // 保留调用时传入的参数
+    let args:any = arguments;
+    // 记录本次触发回调的时间
+    let now:any = +new Date();
+
+    // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+    if (now - last < delay) {
+      // 如果时间间隔小于我们设定的时间间隔阈值，则为本次触发操作设立一个新的定时器
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        last = now;
+        fn.apply(context, args);
+      }, delay);
+    } else {
+      // 如果时间间隔超出了我们设定的时间间隔阈值，那就不等了，无论如何要反馈给用户一次响应
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
+
+export function setCookie(cName: string, value: any, expiredays: any =  "100"):any {
+  if (expiredays > 0 && expiredays !== "100") {
+    let exdate:any = new Date();
+    exdate.setDate(exdate.getDate() + expiredays);
+    document.cookie =
+    // escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。
+      cName + "=" +  escape(value) + (expiredays == null ? "" : ";expires=" + exdate.toUTCString());
+  }
+  if (expiredays === "100") {
+    let exdate:any = new Date("2118-01-01 00:00:00");
+    document.cookie =
+      cName +
+      "=" +
+      escape(value) +
+      // (expiredays == null ? '' : ';expires=' + exdate.toGMTString());
+      (expiredays == null ? "" : ";expires=" + exdate.toUTCString());
+  }
+}
+export function getCookie(cName: string):any {
+  if (document.cookie.length > 0) {
+    let cStart:any = document.cookie.indexOf(cName + "=");
+    if (cStart !== -1) {
+      cStart = cStart + cName.length + 1;
+      let cEnd:any = document.cookie.indexOf(";", cStart);
+      if (cEnd === -1) { cEnd = document.cookie.length; }
+      return unescape(document.cookie.substring(cStart, cEnd));
+    }
+  }
+  return "";
+}
+
+// 设置过期表示删除
+export function delCookie(name: string):any {
+  let exp:any = new Date();
+  exp.setTime(exp.getTime() - 1);
+  let cval:any = getCookie(name);
+  if (cval != null) {
+    document.cookie = name + "=" + cval + ";expires=" + exp.toUTCString();
+  }
+}
+
+// 清除cookie
+export function clearCookie(name: string):any {
+  setCookie(name, "", -1);
+}
+
+// 获取QueryString的数组
+export function getQueryString():any {
+  // 对?后&进行分割
+  let result:any = window.location.search.match(
+    new RegExp("[?&][^?&]+=[^?&]+", "g")
+  );
+  if (result == null) {
+    return "";
+  }
+  for (let i:number = 0; i < result.length; i++) {
+    result[i] = result[i].substring(1);
+  }
+  return result;
+}
+// 根据 QueryString 参数名称获取值
+export function getQueryStringByName(name: string):any {
+  let result:any = window.location.search.match(
+    new RegExp("[?&]" + name + "=([^&]+)", "i")
+  );
+  if (result == null || result.length < 1) {
+    return "";
+  }
+  return result[1];
+}
+// 获取页面顶部被卷起来的高度
+export function getScrollTop():any {
+  return Math.max(
+    // chrome
+    document.body.scrollTop,
+    // firefox/IE
+    document.documentElement.scrollTop
+  );
+}
+// 获取页面文档的总高度
+export function getDocumentHeight():any {
+  // 现代浏览器（IE9+和其他浏览器）和IE8的document.body.scrollHeight和document.documentElement.scrollHeight都可以
+  return Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight
+  );
+}
+// 页面浏览器视口的高度
+export function getWindowHeight():any {
+  return document.compatMode === "CSS1Compat"
+    ? document.documentElement.clientHeight
+    : document.body.clientHeight;
+}
+//// 时间 格式化成 2018-12-12 12:12:00
+export function timestampToTime(timestamp: any, dayMinSecFlag: boolean): any {
+  const date: any = new Date(timestamp);
+  const Y: any = date.getFullYear() + "-";
+  const M: any =
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) + "-";
+  const D: any =
+    date.getDate() < 10 ? "0" + date.getDate() + " " : date.getDate() + " ";
+  const h: any =
+    date.getHours() < 10 ? "0" + date.getHours() + ":" : date.getHours() + ":";
+  const m: any =
+    date.getMinutes() < 10
+      ? "0" + date.getMinutes() + ":"
+      : date.getMinutes() + ":";
+  const s: any =
+    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  if (!dayMinSecFlag) {
+    return Y + M + D;
+  }
+  return Y + M + D + h + m + s;
+}
+
+// 判断是移动端还是 pc 端 ，true 表示是移动端，false 表示是 pc 端
+export function isMobileOrPc():any {
+  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    return true;
+  } else {
+    return false;
+  }
+}
