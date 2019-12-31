@@ -23,7 +23,7 @@ app.get("/page", function(request, response) {
 
 // 当请求根目录的时候被调用
 app.get("/", function(request, response, next) {
-  console.log(request.ip);
+  // console.log(request.ip);
   console.log(request);
   if (request.ip === EVIL_IP) {
     // req.ip 以及 res.status() 和 res.send()
@@ -35,12 +35,19 @@ app.get("/", function(request, response, next) {
 
 // 当请求/about的时候被调用
 app.get("/img", function(request, response) {
-  response.sendFile("path/to/cool_song.mp3");
+  response.sendFile("path/to/cool_song.mp3", err => {
+    if (err) {
+      console.error("File failed to send.");
+      // 错误中间件
+      next(new Error("Error sending file!"));
+    } else {
+      console.log("File sent!");
+    }
+  });
 });
 
 // 当请求/weather的时候被调用
 app.get("/weather", function(request, response) {
-  debugger;
   // response.end("The current weather is NICE.");
   //重定向
   // response.redirect("/hello/world");
@@ -52,6 +59,17 @@ app.get("/hello/:who", function(request, response) {
   // :who 并不是固定住，它表示 URL 中传递过来的名字
   response.end("Hello, " + request.params.who + ".");
 });
+// 通过正则表达式代码对通配参数作为了严格限定：该参数必须是数字类型
+app.get(/^\/number\/(\d+)$/, function(req, res) {
+  console.log(req.params); //{ '0': '123' }
+  var number = parseInt(req.params[0], 10);
+  res.end("Hello, " + number + ".");
+});
+app.get(/^\/users\/(\d+)-(\d+)$/, function(req, res) {
+  var startId = parseInt(req.params[0], 10);
+  var endId = parseInt(req.params[1], 10);
+  res.end(`Hellow startid=${startId}, endId=${endId}`);
+});
 
 // 前面都不匹配，则路由错误。返回 404 页面
 app.use(function(request, response) {
@@ -59,3 +77,4 @@ app.use(function(request, response) {
   response.end("404");
 });
 http.createServer(app).listen(3800);
+// app.listen(3800);

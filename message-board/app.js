@@ -22,6 +22,7 @@ app.locals.entries = entries;
 
 // 使用 Morgan 进行日志记录
 app.use(logger("dev"));
+//这里使用了dev作为输出选项，还有short。其实该模块还提供另两个输出选项：combined 打印最多信息；tiny 打印最少的信息
 
 // 设置用户表单提交动作信息的中间件，所有信息会保存在 req.body 里
 app.use(bodyParser.urlencoded({ extended: false }));
