@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "file-stream-rotator": "^0.5.5",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.2",
     "log4js": "^6.1.0",
     "marked": "^0.6.1",
     "mongoose": "^5.8.1",
